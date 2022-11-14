@@ -10,50 +10,65 @@ vs = 0  # valor do seguro
 #se o produto vem do mexico ou ultilizam o transporte aereo pagam metade ddo valor de seu preço unitario como seguro
 
 while True:
-    po = 0  # pais de origem/
-    mt = 0  # meio de transporte/
-    cp = 0  # carga perigosa/
-    pu = 0  # preço unitario/
-    vs = 0 #valor do seguro
-    ipu = 0  # imposto sobre preço unitario/
-    vt = 0  # valor do transporte/
-    if produto==6:
-        break
-    print(f"Produto {produto}")
-    pu = float(input('Digite o preço unitario do produto: '))
-    while pu<=0:
-        pu = float(input('ERRO! Digite o preço unitario do produto: '))
+    try:
+        po = 0  # pais de origem/
+        mt = 0  # meio de transporte/
+        cp = 0  # carga perigosa/
+        pu = 0  # preço unitario/
+        vs = 0 #valor do seguro
+        ipu = 0  # imposto sobre preço unitario/
+        vt = 0  # valor do transporte/
+        if produto==6:
+            break
+        print(f"\033[34mProduto {produto}\033[m")
+        pu = float(input('Digite o preço unitario do produto: '))
+        while pu<=0:
+            pu = float(input('ERRO! Digite o preço unitario do produto: '))
 
-    po = int(input("Digite o pais de origem:\n(1) EUA\n(2) Mexico\n(3) Outros: "))
-    while po>=4 or po<=0:
-        po = int(input("ERRO! Digite o pais de origem:\n(1) EUA\n(2) Mexico\n(3) Outros: "))
-    mp = str(input('Digite o meio de transporte do produto: \nT –Terrestre\nF-Fluvial\nA –Aéreo')).upper()
-    while mp !='F' and mp!='A' and mp!='T':
-        mp = str(input("ERRO! Digite um valor válido: \nT –Terrestre\nF-Fluvial\nA –Aéreo"))
-    cp = str(input("Carga Perigosa? [S/N]")).upper()
-    while cp!='S' and cp!="N":
-        cp = str(input("ERRO! Carga Perigosa? [S/N]")).upper()
-    if pu<=100:
-        ipu = pu*0.05
-    else:
-        ipu = pu*0.1
-    if cp == "S":
-        if po ==1:
-            vt = 50
-        if po ==2:
-            vt = 35
+        po = int(input("Digite o pais de origem:\n(1) EUA\n(2) Mexico\n(3) Outros: "))
+        while po>=4 or po<=0:
+            po = int(input("ERRO! Digite o pais de origem:\n(1) EUA\n(2) Mexico\n(3) Outros: "))
+        mt = str(input('Digite o meio de transporte do produto: \nT –Terrestre\nF-Fluvial\nA –Aéreo ')).upper()
+        while mt !='F' and mt!='A' and mt!='T':
+            mt = str(input("ERRO! Digite um valor válido: \nT –Terrestre\nF-Fluvial\nA –Aéreo ")).upper()
+        cp = str(input("Carga Perigosa? [S/N]")).upper()
+        while cp!='S' and cp!="N":
+            cp = str(input("ERRO! Carga Perigosa? [S/N]")).upper()
+        if pu<=100:
+            ipu = pu*0.05
         else:
-            vt = 36
-    else:
-        if po ==1:
-            vt = 12
-        if po ==2:
-            vt = 35
+            ipu = pu*0.1
+        if cp == "S":
+            if po ==1:
+                vt = 50
+            if po ==2:
+                vt = 35
+            else:
+                vt = 36
         else:
-            vt = 60
-    if po == 2 or mt =='A':
-        vs = pu/2
-    print (f"O valor do transporte ficou em R${vt}\nO valor unitario é R${pu}\nO valor do seguro fica no total de R${vs}\nE o valor total é de R${vt+pu+vs}")
-    sleep(2.5)
-    produto +=1
+            if po ==1:
+                vt = 12
+            if po ==2:
+                vt = 35
+            else:
+                vt = 60
+        if po == 2 or mt == 'A':
+            vs = pu/2
+        print (f"\033[32mO valor do transporte ficou em R${vt}\nO valor unitario é R${pu}\nO valor do seguro fica no total de R${vs}\nE o valor total é de R${vt+pu+vs}\033[m")
+        sleep(2.5)
+        produto +=1
+    except (KeyboardInterrupt):
+        print ('\n\n')
+        print("\033[1:31m-"*45)
+        print("       O usuario escolheu sair do programa")
+        print("-"*45)
+        print('\033[m')
+        break
+    except:
+        print ('\n\n')
+        print("\033[1:31m-"*45)
+        print("       OCORREU UM ERRO! Tente novamente!")
+        print("-"*45)
+        print('\033[m')
+
 print ('fim')
